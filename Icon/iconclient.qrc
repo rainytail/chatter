@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Bold.jpg</file>
+        <file>Color.jpg</file>
+        <file>Italic.jpg</file>
+        <file>tty.jpg</file>
+        <file>Icon_client.jpg</file>
+    </qresource>
+</RCC>
