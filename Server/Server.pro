@@ -43,4 +43,5 @@ FORMS += \
 
 RESOURCES += \
     ../Icon/icon.qrc \
-    ../Icon/icon.qrc
+    ../Icon/icon.qrc \
+    ../QSS/ui.qrc

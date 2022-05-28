@@ -17,8 +17,7 @@
    <double>0.950000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(230, 243, 255);
-font: 25 9pt &quot;Fira Code&quot;;</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTextBrowser" name="Chat">
@@ -172,32 +171,6 @@ font: 25 9pt &quot;Fira Code&quot;;</string>
      <string>此处输入发送的信息......</string>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>550</y>
-      <width>161</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="Submit">
-       <property name="text">
-        <string>发送</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="Clear">
-       <property name="text">
-        <string>清除</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -253,6 +226,38 @@ font: 25 9pt &quot;Fira Code&quot;;</string>
      <string>Port</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="Submit">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>550</y>
+      <width>159</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>发送</string>
+    </property>
+    <property name="shortcut">
+     <string>Alt+S</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Clear">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>620</y>
+      <width>159</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>清除</string>
+    </property>
+    <property name="shortcut">
+     <string>Alt+L</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -260,7 +265,7 @@ font: 25 9pt &quot;Fira Code&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>1045</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

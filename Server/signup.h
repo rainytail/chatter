@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlDatabase>
+#include <QFile>
 
 namespace Ui {
 class SignUp;
@@ -17,6 +18,9 @@ class SignUp : public QDialog
 public:
     explicit SignUp(QWidget *parent = 0);
     ~SignUp();
+
+    void set_ui();
+    void clear(); // 每次调用时，先把内容清空
 
     QSqlDatabase db; // 数据库结构，与login相同
 

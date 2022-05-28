@@ -5,7 +5,16 @@
 void Client::set_menus() {
     server_menu = menuBar()->addMenu("服务器");
     conn = new QAction("连接", this);
+    conn->setShortcut(QKeySequence("Alt+O"));
     server_menu->addAction(conn);
+    disconn = new QAction("断开连接", this);
+    disconn->setShortcut(QKeySequence("Alt+E"));
+    server_menu->addAction(disconn);
+
+    disconn->setEnabled(false);
+
+    connect(conn, &QAction::triggered, this, &Client::linkToServer);
+    connect(disconn, &QAction::triggered, this, &Client::disconnctToServer);
 }
 
 void Client::show_msg() {
@@ -93,7 +102,19 @@ void Client::linkToServer() {
         }
         connect(socket, &QTcpSocket::readyRead, this, &Client::show_msg, Qt::UniqueConnection);
         socket->write(encode(ui->user->text(), tr("大家好")));
+
+        conn->setEnabled(false);
+        disconn->setEnabled(true);
     }
+}
+
+void Client::disconnctToServer() {
+    socket->disconnectFromHost();
+    ui->Chat->clear();
+    statusBar()->showMessage("您已断开连接", 2000);
+    conn->setEnabled(true);
+    disconn->setEnabled(false);
+    socket->close();
 }
 
 void Client::send() {
@@ -117,9 +138,9 @@ Client::Client(QWidget *parent) :
     this->setWindowIcon(QIcon(":/Icon_client.jpg"));
     set_menus();
 
+
     socket = new QTcpSocket(this);
 
-    connect(conn, &QAction::triggered, this, &Client::linkToServer);
     connect(ui->submit, &QPushButton::clicked, this, &Client::send);
     connect(ui->clear, &QPushButton::clicked, this, &Client::clear);
     connect(ui->leave, &QPushButton::clicked, this, &Client::close);

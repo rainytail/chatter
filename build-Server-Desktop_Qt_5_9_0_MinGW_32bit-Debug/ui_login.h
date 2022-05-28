@@ -51,9 +51,7 @@ public:
         login = new QPushButton(Login);
         login->setObjectName(QStringLiteral("login"));
         login->setGeometry(QRect(40, 190, 101, 41));
-        login->setStyleSheet(QLatin1String("\n"
-"QPushButton{\n"
-"border-style:solid;border-width:1px;border-color:black;border-radius:150px;}"));
+        login->setStyleSheet(QStringLiteral(""));
         quit = new QPushButton(Login);
         quit->setObjectName(QStringLiteral("quit"));
         quit->setGeometry(QRect(190, 190, 101, 41));
@@ -75,7 +73,7 @@ public:
         pwdEdit->setGeometry(QRect(80, 130, 241, 31));
         signUp = new QPushButton(Login);
         signUp->setObjectName(QStringLiteral("signUp"));
-        signUp->setGeometry(QRect(240, 20, 93, 41));
+        signUp->setGeometry(QRect(240, 20, 101, 41));
 
         retranslateUi(Login);
 
@@ -87,12 +85,21 @@ public:
         Login->setWindowTitle(QApplication::translate("Login", "Dialog", Q_NULLPTR));
         Info->setText(QApplication::translate("Login", "\347\256\241\347\220\206\345\221\230\347\231\273\351\231\206\347\263\273\347\273\237", Q_NULLPTR));
         login->setText(QApplication::translate("Login", "\347\231\273\345\275\225", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        login->setShortcut(QApplication::translate("Login", "Alt+Return", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         quit->setText(QApplication::translate("Login", "\351\200\200\345\207\272", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        quit->setShortcut(QApplication::translate("Login", "Alt+Q", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         userLabel->setText(QApplication::translate("Login", "\350\264\246\345\217\267", Q_NULLPTR));
         pwdLabel->setText(QApplication::translate("Login", "\345\257\206\347\240\201", Q_NULLPTR));
         userEdit->setPlaceholderText(QApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", Q_NULLPTR));
         pwdEdit->setPlaceholderText(QApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", Q_NULLPTR));
         signUp->setText(QApplication::translate("Login", "\346\263\250\345\206\214", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        signUp->setShortcut(QApplication::translate("Login", "Alt+S", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
     } // retranslateUi
 
 };

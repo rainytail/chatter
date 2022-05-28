@@ -66,10 +66,10 @@ public:
         pwdEdit->setGeometry(QRect(70, 120, 221, 31));
         signup = new QPushButton(SignUp);
         signup->setObjectName(QStringLiteral("signup"));
-        signup->setGeometry(QRect(20, 180, 93, 28));
+        signup->setGeometry(QRect(20, 170, 101, 41));
         quit = new QPushButton(SignUp);
         quit->setObjectName(QStringLiteral("quit"));
-        quit->setGeometry(QRect(200, 180, 93, 28));
+        quit->setGeometry(QRect(190, 170, 101, 41));
 
         retranslateUi(SignUp);
 
@@ -85,7 +85,13 @@ public:
         userEdit->setPlaceholderText(QApplication::translate("SignUp", "\350\257\267\350\276\223\345\205\245\346\263\250\345\206\214\347\232\204\350\264\246\345\217\267", Q_NULLPTR));
         pwdEdit->setPlaceholderText(QApplication::translate("SignUp", "\350\257\267\350\276\223\345\205\245\346\263\250\345\206\214\347\232\204\345\257\206\347\240\201", Q_NULLPTR));
         signup->setText(QApplication::translate("SignUp", "\346\263\250\345\206\214", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        signup->setShortcut(QApplication::translate("SignUp", "Alt+Return", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         quit->setText(QApplication::translate("SignUp", "\351\200\200\345\207\272", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        quit->setShortcut(QApplication::translate("SignUp", "Alt+Q", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
     } // retranslateUi
 
 };

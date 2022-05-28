@@ -47,12 +47,13 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">
-QPushButton{
-border-style:solid;border-width:1px;border-color:black;border-radius:150px;}</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>登录</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Return</string>
    </property>
   </widget>
   <widget class="QPushButton" name="quit">
@@ -66,6 +67,9 @@ border-style:solid;border-width:1px;border-color:black;border-radius:150px;}</st
    </property>
    <property name="text">
     <string>退出</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Q</string>
    </property>
   </widget>
   <widget class="QLabel" name="userLabel">
@@ -135,12 +139,15 @@ border-style:solid;border-width:1px;border-color:black;border-radius:150px;}</st
     <rect>
      <x>240</x>
      <y>20</y>
-     <width>93</width>
+     <width>101</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
     <string>注册</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
    </property>
   </widget>
  </widget>

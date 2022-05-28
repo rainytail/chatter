@@ -3,11 +3,18 @@
 #include <QDebug>
 
 void Login::set_ui() {
-    QFile file("D:\\Horb7\\QtWork\\QSS\\button.css");
-    file.open(QFile::ReadOnly);
-    QString qss = file.readAll();
+    QFile qss_body(":/login.qss");
+    qss_body.open(QFile::ReadOnly);
+    QString qss = qss_body.readAll();
     qDebug() << qss << '\n';
+    setStyleSheet(qss);
+
+    QFile qss_btn(":/button.qss");
+    qss_btn.open(QFile::ReadOnly);
+    qss = qss_btn.readAll();
     ui->login->setStyleSheet(qss);
+    ui->quit->setStyleSheet(qss);
+    ui->signUp->setStyleSheet(qss);
 }
 
 Login::Login(QWidget *parent) :
@@ -76,6 +83,7 @@ void Login::try_signUp() {
         signUpDialog = new SignUp(this);
     }
 
+    signUpDialog->clear();
     signUpDialog->db = this->db;
 
     // 运行注册模块(模式对话框形式)

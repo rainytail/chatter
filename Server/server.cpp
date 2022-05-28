@@ -5,8 +5,11 @@
 void Server::set_status() {
     // 状态栏，临时信息：当前人数，禁言情况；永久信息：聊天室信息
     status_label = new QLabel(this->statusBar());
-    status_label->setText("当前在线人数");
+    status_label->setText("当前在线人数: 0");
     statusBar()->addWidget(status_label);
+
+    QLabel *permanent = new QLabel("简易聊天室", this);
+    statusBar()->addPermanentWidget(permanent);
 }
 
 void Server::set_menus() {
@@ -29,6 +32,20 @@ void Server::set_table_widget() {
     ui->Current->setHorizontalHeaderLabels(QStringList() << "用户" << "ip");
     // 设置不可被编辑
     ui->Current->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
+void Server::set_ui() {
+    QFile qss_body(":/server.qss");
+    qss_body.open(QFile::ReadOnly);
+    QString qss = qss_body.readAll();
+    setStyleSheet(qss);
+
+    //button
+    QFile qss_btn(":/button.qss");
+    qss_btn.open(QFile::ReadOnly);
+    qss = qss_btn.readAll();
+    ui->Submit->setStyleSheet(qss);
+    ui->Clear->setStyleSheet(qss);
 }
 
 void Server::moveOne() {
@@ -215,6 +232,7 @@ void Server::start_listen() {
 
     // 开启监听，需要给出ip和port
     server->listen(QHostAddress(ui->ip->text()), ui->port->text().toUShort());
+
     connect(server, &QTcpServer::newConnection, this, &Server::tackle_sockets);
     start_monitor->setEnabled(false);
     end_monitor->setEnabled(true);
@@ -237,6 +255,7 @@ Server::Server(QWidget *parent) :
     set_menus();
     set_table_widget();
     set_curList();
+    set_ui();
 
     connect(start_monitor, &QAction::triggered, this, &Server::start_listen);
     connect(end_monitor, &QAction::triggered, this, &Server::end_listen);

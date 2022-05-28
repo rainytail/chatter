@@ -1,0 +1,13 @@
+QLineEdit {
+    border-radius: 10px;
+}
+
+/* 密码模式 */
+QLineEdit[echoMode="2"] {
+    lineedit-password-character:9679;
+}
+
+/* 当是只读模式时 */
+QLineEdit:read-only {
+    background:red;
+}

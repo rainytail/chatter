@@ -36,6 +36,7 @@ public:
 
     // Actions
     QAction *conn;
+    QAction *disconn;
 
     // 文字状态
     bool is_bold = false;
@@ -46,6 +47,7 @@ public slots:
     void send(); // 发送信息
     void clear(); // 清除信息
     void linkToServer(); // 连接到服务器
+    void disconnctToServer(); // 断开连接
     void show_msg(); // 把接受的信息打印在textbrowser上
 
     // 工具项

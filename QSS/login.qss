@@ -1,0 +1,15 @@
+.Login {
+    background-color: #91a3b0;
+}
+
+.SignUp {
+    background-color: #91a3b0;
+}
+
+QLineEdit {
+    border-radius: 10px;
+}
+
+QLabel {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

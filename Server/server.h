@@ -14,6 +14,7 @@
 #include <QAbstractItemView>
 #include <QColorDialog>
 #include <QFontDialog>
+#include <QFile>
 
 namespace Ui {
 class Server;
@@ -37,6 +38,7 @@ public:
 
     void set_status(); // 设计状态栏
     void set_menus(); // 设计菜单
+    void set_ui(); // ui美化
 
     void set_table_widget(); // 设计teble_widget
 

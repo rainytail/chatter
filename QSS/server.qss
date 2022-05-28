@@ -1,0 +1,7 @@
+.Server {
+    background-color: #C5C9CF;
+}
+
+QLineEdit {
+    background-color: whitesmoke;
+}

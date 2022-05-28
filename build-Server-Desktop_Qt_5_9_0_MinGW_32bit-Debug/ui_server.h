@@ -25,7 +25,6 @@
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -46,14 +45,12 @@ public:
     QToolButton *Bold;
     QToolButton *Italic;
     QTextEdit *SubmitEdit;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
-    QPushButton *Submit;
-    QPushButton *Clear;
     QLabel *label;
     QLineEdit *user;
     QLineEdit *ip;
     QLineEdit *port;
+    QPushButton *Submit;
+    QPushButton *Clear;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -64,8 +61,7 @@ public:
             Server->setObjectName(QStringLiteral("Server"));
         Server->resize(1045, 802);
         Server->setWindowOpacity(0.95);
-        Server->setStyleSheet(QLatin1String("background-color: rgb(230, 243, 255);\n"
-"font: 25 9pt \"Fira Code\";"));
+        Server->setStyleSheet(QStringLiteral(""));
         monitor = new QAction(Server);
         monitor->setObjectName(QStringLiteral("monitor"));
         action_2 = new QAction(Server);
@@ -121,24 +117,6 @@ public:
         SubmitEdit = new QTextEdit(centralWidget);
         SubmitEdit->setObjectName(QStringLiteral("SubmitEdit"));
         SubmitEdit->setGeometry(QRect(20, 530, 661, 171));
-        verticalLayoutWidget = new QWidget(centralWidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(700, 550, 161, 111));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        Submit = new QPushButton(verticalLayoutWidget);
-        Submit->setObjectName(QStringLiteral("Submit"));
-
-        verticalLayout->addWidget(Submit);
-
-        Clear = new QPushButton(verticalLayoutWidget);
-        Clear->setObjectName(QStringLiteral("Clear"));
-
-        verticalLayout->addWidget(Clear);
-
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(480, 470, 71, 41));
@@ -152,10 +130,16 @@ public:
         port = new QLineEdit(centralWidget);
         port->setObjectName(QStringLiteral("port"));
         port->setGeometry(QRect(830, 470, 113, 41));
+        Submit = new QPushButton(centralWidget);
+        Submit->setObjectName(QStringLiteral("Submit"));
+        Submit->setGeometry(QRect(710, 550, 159, 41));
+        Clear = new QPushButton(centralWidget);
+        Clear->setObjectName(QStringLiteral("Clear"));
+        Clear->setGeometry(QRect(710, 620, 159, 41));
         Server->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Server);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1045, 25));
+        menuBar->setGeometry(QRect(0, 0, 1045, 26));
         Server->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Server);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -182,12 +166,18 @@ public:
         Bold->setText(QApplication::translate("Server", "...", Q_NULLPTR));
         Italic->setText(QApplication::translate("Server", "...", Q_NULLPTR));
         SubmitEdit->setPlaceholderText(QApplication::translate("Server", "\346\255\244\345\244\204\350\276\223\345\205\245\345\217\221\351\200\201\347\232\204\344\277\241\346\201\257......", Q_NULLPTR));
-        Submit->setText(QApplication::translate("Server", "\345\217\221\351\200\201", Q_NULLPTR));
-        Clear->setText(QApplication::translate("Server", "\346\270\205\351\231\244", Q_NULLPTR));
         label->setText(QApplication::translate("Server", "\347\224\250\346\210\267", Q_NULLPTR));
         user->setPlaceholderText(QApplication::translate("Server", "\347\224\250\346\210\267\345\220\215", Q_NULLPTR));
         ip->setPlaceholderText(QApplication::translate("Server", "IP", Q_NULLPTR));
         port->setPlaceholderText(QApplication::translate("Server", "Port", Q_NULLPTR));
+        Submit->setText(QApplication::translate("Server", "\345\217\221\351\200\201", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        Submit->setShortcut(QApplication::translate("Server", "Alt+S", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
+        Clear->setText(QApplication::translate("Server", "\346\270\205\351\231\244", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        Clear->setShortcut(QApplication::translate("Server", "Alt+L", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
     } // retranslateUi
 
 };
