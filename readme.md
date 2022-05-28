@@ -58,7 +58,7 @@
 
 下面罗列我整理的相关函数或槽、信号等，以及一些浅薄的认知。下面统一把 QTcpsocket 称作 socket。
 
-##### QTcpserver
+#### QTcpserver
 
 | 函数\信号\槽                        | 参数         | 备注                               | 返回值           |
 | ----------------------------------- | ------------ | ---------------------------------- | ---------------- |
@@ -66,7 +66,7 @@
 | void newconnection()                | 无           | 槽函数，新的socket连接进来时会触发 | 无               |
 | QTcpsocket *nextPendingConnection() | 无           | 获取连接进来的socket对象地址       | socket对象的地址 |
 
-##### QTcpsocket
+#### QTcpsocket
 
 | 函数\信号\槽                           | 参数             | 备注                             | 返回值               |
 | -------------------------------------- | ---------------- | -------------------------------- | -------------------- |
@@ -94,6 +94,187 @@
 当客户端的socket中存储了信息后，触发readyRead信号，将QJson文档解析为QJson对象，然后将对象内存储的数据取出来打印到自己的屏幕上。
 
 QJson介绍：https://blog.csdn.net/foxgod/article/details/90407960
+
+![image-20220528143548328](D:\Horb7\QtWork\images\image-20220528143548328.png)
+
+
+
+给出服务端和客户端的头文件：
+
+#### 服务端
+
+```c++
+#ifndef SERVER_H
+#define SERVER_H
+
+#include <QMainWindow>
+#include <QLabel>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QHostAddress>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonParseError>
+#include <QJsonObject>
+#include <QAction>
+#include <QAbstractItemView>
+#include <QColorDialog>
+#include <QFontDialog>
+#include <QFile>
+#include <QTime>
+
+namespace Ui {
+class Server;
+}
+
+class Server : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit Server(QWidget *parent = 0);
+    ~Server();
+
+    void show_msg(const QString &msg);
+
+    QByteArray encode(const QString &user, const QString &msg); // 对数据进行编码形成Json文件
+    void decode(const QByteArray &Info); // 对Json进行解析并应用
+
+    void init_server(); // 建立TCPserver连接
+    void close_server(); // 关闭TCPserver连接
+
+    void set_status(); // 设计状态栏
+    void set_menus(); // 设计菜单
+    void set_ui(); // ui美化
+
+    void set_table_widget(); // 设计teble_widget
+
+    void set_curList(); // 设计curList的菜单
+
+
+public:
+    int numbers = 0; // 记录当前按在线人数
+    QString user, message; // 解析出来的上一条信息
+
+    // 一些需要的部件
+
+    // menus
+    QMenu *server_menu;
+
+    // Actions
+    QAction *start_monitor;
+    QAction *end_monitor;
+
+    // curList的菜单项
+    QAction *move;
+
+    // Status-Bar
+    QLabel *status_label;
+
+    QTcpServer *server; // server用来监听端口，获取tcp连接的描述符
+    QList<QTcpSocket*> recv; // 接收到的socket对象
+
+
+    // 文字状态
+    bool is_bold = false;
+    bool is_italic = false;
+    QFont font; // 字体
+
+public slots:
+    void start_listen(); // 开启监听
+    void end_listen(); // 结束监听
+    void tackle_sockets(); // 处理newconnection
+    void socket_read(); // 处理readyRead
+    void socket_disconnect(); // 处理 disconnect
+    void send(); // 发送信息
+    void clear(); // 清除信息
+    void moveOne(); // 移除某个用户
+
+    // 工具类
+    void chooseColor();
+    void chooseBold();
+    void chooseFontFamily();
+
+
+private:
+    Ui::Server *ui;
+};
+
+#endif // SERVER_H
+
+```
+
+#### 客户端
+
+```c++
+#ifndef CLIENT_H
+#define CLIENT_H
+
+#include <QMainWindow>
+#include <QLabel>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QHostAddress>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonParseError>
+#include <QJsonObject>
+#include <QAction>
+#include <QFontDialog>
+#include <QColorDialog>
+#include <QTime>
+
+namespace Ui {
+class Client;
+}
+
+class Client : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit Client(QWidget *parent = 0);
+    ~Client();
+    void set_menus(); // 设计菜单栏
+    QByteArray encode(const QString &user, const QString &msg); // 为发送的信息编码
+    void decode(const QByteArray &Info);
+
+    QTcpSocket *socket; // 客户端建立套接字
+
+    // Menus
+    QMenu *server_menu;
+
+    // Actions
+    QAction *conn;
+    QAction *disconn;
+
+    // 文字状态
+    bool is_bold = false;
+    bool is_italic = false;
+    QFont font; // 字体
+
+public slots:
+    void send(); // 发送信息
+    void clear(); // 清除信息
+    void linkToServer(); // 连接到服务器
+    void disconnctToServer(); // 断开连接
+    void show_msg(); // 把接受的信息打印在textbrowser上
+
+    // 工具项
+    void chooseColor();
+    void chooseBold();
+    void chooseFontFamily();
+
+
+private:
+    Ui::Client *ui;
+};
+
+#endif // CLIENT_H
+
+```
+
+
 
 
 
@@ -139,17 +320,45 @@ QJson介绍：https://blog.csdn.net/foxgod/article/details/90407960
 
 
 
-### QTextBrowser 实现每行不同风格文字
+### UI模块
 
-在本项目中，QTextBrowser用来打印所有的聊天信息，而不同的客户端会进行不同的个性化设置，这需要在聊天窗口得以体现。
+UI模块主要由各部件本身的代码设计和QSS文件设计组成。
 
-再QTextBrowser中实现不同风格，有两种方式：
+##### 部件设计
+
+###### 状态栏
+
+在服务端，使用QLabel放置在状态栏上，用来显示当前聊天室内的人数。
+
+同时，设置永久信息来显示chatter的信息。
+
+在客户端，状态栏用来显示当前的状态，如：输入信息为空时，不能输出到socket中。
+
+###### QTabelWidget
+
+放置在服务端，用来显示当前聊天室的人数，以及登录人员的具体信息(用户名+IP地址)。
+
+QTabelWidget详解：http://c.biancheng.net/view/9419.html
+
+###### 工具项
+
+工具项主要由字体加粗，选择字体颜色，选择字体等按钮实现，表现在QTextBrowser中。
+
+###### QTextBrowser
+
+这个是聊天界面，显示服务端与各客户端的所有发出的信息。
+
+由于QTextBrowser设置字体颜色是不会改变整体的，所以可以显示各个不同客户端的个性化设置。
+
+在QTextBrowser中实现不同风格，有两种方式：
 
 1. 由于在QTextBrowser中可以内嵌html元素，因此可以实现不同风格文字的打印。
 
 2. 对QTextBrowser字体的任何修改，都是修改之后加入的信息，不会影响前面的信息，因此我们也可以直接对QTextBrowser进行设置。
 
-#### 颜色不同
+
+
+**颜色不同**
 
 参考：https://blog.csdn.net/u010687717/article/details/101281121
 
@@ -167,12 +376,62 @@ QJson介绍：https://blog.csdn.net/foxgod/article/details/90407960
 
 ![image-20220524223937719](D:\Horb7\QtWork\images\image-20220524223937719.png)
 
-#### 字体加粗
+
+
+**字体加粗**
 
 同样使用第二种方法，把字体设置为粗体。
 
-由于QTextBrowser不存在直接设置粗体的方法，我们可以在类中定义字体的状态 `is_bold` 记录当前是否为粗体，在编码时插入到 QJson 中即可，然后在解码时，提取 QTextBrowser 的字体，改为粗体再将其设置为 QT而心痛Browser 的字体。
+由于QTextBrowser不存在直接设置粗体的方法，我们可以在类中定义字体的状态 `is_bold` 记录当前是否为粗体，在编码时插入到 QJson 中即可，然后在解码时，提取 QTextBrowser 的字体，改为粗体再将其设置为 QTextBrowser 的字体。
 
 需要注意的是，由于 Server 端的消息也需要打印，而这时不需要解码，因此还要对其进行额外操作，在点击按钮时，设置粗体。
 
-**但是，粗体在QTextBroswer中只能全体增加，而且 Html 标签的 Font 不存在设置粗体的属性，因此不能个性化设置。**
+**但是，粗体在QTextBrowser中只能全体增加，而且 Html 标签的 Font 不存在设置粗体的属性，因此不能个性化设置。**
+
+
+
+**字体选择**
+
+字体选择与字体选择类似，同样也不能个性化设置，更改后会影响整个QTextBrowser的字体。
+
+
+
+##### QSS文件设计
+
+QSS即QT Style Sheet，中文名Qt样式表，可以实现QT部件的样式美化，与CSS类似，但没有CSS强大，功能较少。
+
+官方文档：https://doc.qt.io/qt-5/stylesheet-reference.html#border-style
+
+在chatter中，对Login、SignUp和Server界面进行美化，主要是一些比较简单的美化，比如将QPushButton设置圆角等。
+
+以 QPushButton 的QSS文件为例：
+
+```css
+QPushButton {
+    background: #0088CC;
+    color: #fff;
+    border-style: outset;
+    border-radius: 10px;
+}
+
+QPushButton:pressed {
+    background-color: #49afcd;
+    color: #dedede;
+    border-style: inset;
+}
+
+QPushButton:hover {
+    background-color: #49afcd;
+    border-color: #5599ff;
+}
+```
+
+
+
+## 总结
+
+这次的QT大作业只是完成了部分网络聊天室的功能，还有部分比如踢出群聊，保存历史聊天记录等功能没有完成。
+
+由于时间比较紧迫，导致代码写起来比较乱，而且只完善了服务端，客户端还有很多可以完善。有些地方可以写的更简洁或者拆分成多个模块来完成。
+
+不过这次也学习了很多知识，也更好地了解了面向对象编程，希望以后有时间的话可以再改进一些地方。

@@ -75,14 +75,14 @@ public:
     QFont font; // 字体
 
 public slots:
-    void start_listen();
-    void end_listen();
-    void tackle_sockets();
-    void socket_read();
-    void socket_disconnect();
-    void send();
-    void clear();
-    void moveOne();
+    void start_listen(); // 开启监听
+    void end_listen(); // 结束监听
+    void tackle_sockets(); // 处理newconnection
+    void socket_read(); // 处理readyRead
+    void socket_disconnect(); // 处理 disconnect
+    void send(); // 发送信息
+    void clear(); // 清除信息
+    void moveOne(); // 移除某个用户
 
     // 工具类
     void chooseColor();
