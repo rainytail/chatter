@@ -81,7 +81,8 @@ public:
         Current->setObjectName(QStringLiteral("Current"));
         Current->setGeometry(QRect(700, 50, 271, 401));
         Current->setContextMenuPolicy(Qt::ActionsContextMenu);
-        Current->setFrameShape(QFrame::Panel);
+        Current->setFrameShape(QFrame::WinPanel);
+        Current->setFrameShadow(QFrame::Sunken);
         CurrentLable = new QLabel(centralWidget);
         CurrentLable->setObjectName(QStringLiteral("CurrentLable"));
         CurrentLable->setGeometry(QRect(701, 14, 101, 31));
@@ -117,6 +118,7 @@ public:
         SubmitEdit = new QTextEdit(centralWidget);
         SubmitEdit->setObjectName(QStringLiteral("SubmitEdit"));
         SubmitEdit->setGeometry(QRect(20, 530, 661, 171));
+        SubmitEdit->setFrameShape(QFrame::WinPanel);
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(480, 470, 71, 41));

@@ -38,6 +38,7 @@ void Server::set_ui() {
     QFile qss_body(":/server.qss");
     qss_body.open(QFile::ReadOnly);
     QString qss = qss_body.readAll();
+    qDebug() << "in server ui qss: " << qss << '\n';
     setStyleSheet(qss);
 
     //button

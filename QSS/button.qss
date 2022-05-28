@@ -2,7 +2,7 @@ QPushButton {
     background: #0088CC;
     color: #fff;
     border-style: outset;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 QPushButton:pressed {

@@ -5,3 +5,13 @@
 QLineEdit {
     background-color: whitesmoke;
 }
+
+QTextEdit {
+    background-color: whitesmoke;
+    border-radius: 15px;
+}
+
+QTableWidget {
+    background-color: whitesmoke;
+    border-radius: 15px;
+}

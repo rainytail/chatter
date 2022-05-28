@@ -97,6 +97,7 @@ void Client::linkToServer() {
         if (socket->state() == QTcpSocket::UnconnectedState) {
             // 连接失败
             qDebug() << "not link\n";
+            return ;
         } else {
             // 连接成功
             qDebug() << "linked\n";
