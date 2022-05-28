@@ -15,6 +15,7 @@
 #include <QColorDialog>
 #include <QFontDialog>
 #include <QFile>
+#include <QTime>
 
 namespace Ui {
 class Server;

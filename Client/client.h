@@ -13,6 +13,7 @@
 #include <QAction>
 #include <QFontDialog>
 #include <QColorDialog>
+#include <QTime>
 
 namespace Ui {
 class Client;

@@ -125,8 +125,12 @@ void Server::decode(const QByteArray &Info) {
 }
 
 void Server::show_msg(const QString &msg) {
+    QTime nowTime = QTime::currentTime();
+    QString now_time = nowTime.toString("hh:mm:ss ap");
+//    qDebug() << now_time << '\n';
+
     // 将信息打印在textBrowser上
-    ui->Chat->append(msg);
+    ui->Chat->append(now_time + " " + msg + "\n");
 }
 
 void Server::socket_read() {

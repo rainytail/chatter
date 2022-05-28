@@ -26,6 +26,8 @@ SignUp::SignUp(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->pwdEdit->setEchoMode(QLineEdit::Password);
+    setWindowIcon(QIcon(":/SignUp.jpg"));
+    setWindowTitle("注册");
     set_ui();
 
     connect(ui->signup, &QPushButton::clicked, this, &SignUp::try_get_new_account);

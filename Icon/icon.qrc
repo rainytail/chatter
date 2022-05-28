@@ -5,5 +5,8 @@
         <file>Italic.jpg</file>
         <file>tty.jpg</file>
         <file>Icon_server.jpg</file>
+        <file>SignUp.jpg</file>
+        <file>Login.jpg</file>
+        <file>info.jpg</file>
     </qresource>
 </RCC>

@@ -76,7 +76,9 @@ void Client::decode(const QByteArray &Info) {
         int color_g = json.value("font color g").toInt();
         int color_b = json.value("font color b").toInt();
         ui->Chat->setTextColor(QColor(color_r, color_g, color_b));
-        ui->Chat->append((user + ":\n" + message).toUtf8());
+        QTime nowTime = QTime::currentTime();
+        QString now_time = nowTime.toString("hh:mm:ss ap");
+        ui->Chat->append(now_time + " " + (user + ":\n" + message).toUtf8() + "\n");
         qDebug() << "decode\n";
     }
 }

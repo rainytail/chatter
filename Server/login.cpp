@@ -23,6 +23,7 @@ Login::Login(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->pwdEdit->setEchoMode(QLineEdit::Password);
+    setWindowIcon(QIcon(":/Login.jpg"));
     setWindowTitle("入口菜单");
     set_ui();
 
@@ -69,7 +70,7 @@ void Login::try_login() {
         if (username == ui->userEdit->text() &&
                 password == ui->pwdEdit->text()) {
             // 查找到这个用户
-            QMessageBox::information(this, "information", "登陆成功!", QMessageBox::Ok);
+            QMessageBox::information(this, "info", "登陆成功!", QMessageBox::Ok);
             return accept(); // 返回Accepted
         }
     }
